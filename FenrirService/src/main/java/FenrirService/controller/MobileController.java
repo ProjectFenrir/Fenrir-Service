@@ -9,14 +9,26 @@ import FenrirService.representation.mobile.*;
 @RestController
 public class MobileController {
 	
+	//Get required data for auth <url>/FenrirService/mobile/data?number=<number>
 	@RequestMapping("/mobile/data")
-	public Data data(){
+	public Data data(@RequestParam(value="number", defaultValue="0") String number){
 		return new Data();
 	}
 	
 	@RequestMapping("/mobile/auth")
-	public Auth auth(){
-		return new Auth();
+	public Auth auth(@RequestParam(value="auth", defaultValue="failed") String auth){
+		
+		//check if auth succeeded
+		if(!auth.equals("failed")){
+			//execude code for succeeded attempt
+			
+			return new Auth();
+		}else{
+			//execude code for failed attempt
+			
+			return new Auth();
+		}
+		
 	}
 	
 	//Check for new login attempts <url>/FenrirService/mobile/check?number=<number>
