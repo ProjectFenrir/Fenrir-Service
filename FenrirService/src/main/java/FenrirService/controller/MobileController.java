@@ -12,21 +12,28 @@ public class MobileController {
 	//Get required data for auth <url>/FenrirService/mobile/data?number=<number>
 	@RequestMapping("/mobile/data")
 	public Data data(@RequestParam(value="number", defaultValue="0") String number){
-		return new Data();
+		// code to get required data from database
+		
+		return new Data(1);
 	}
 	
 	@RequestMapping("/mobile/auth")
-	public Auth auth(@RequestParam(value="auth", defaultValue="failed") String auth){
+	public Auth auth(@RequestParam(value="number", defaultValue="0") String number, @RequestParam(value="auth", defaultValue="failed") String auth){
+		
+		//check if number is equal to 0 if so auth cannot succeed so return error
+		if(number.equals("0")){
+			return new Auth(2);
+		}
 		
 		//check if auth succeeded
 		if(!auth.equals("failed")){
 			//execude code for succeeded attempt
 			
-			return new Auth();
+			return new Auth(1);
 		}else{
 			//execude code for failed attempt
 			
-			return new Auth();
+			return new Auth(0);
 		}
 		
 	}
