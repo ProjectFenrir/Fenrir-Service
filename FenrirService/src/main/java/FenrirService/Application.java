@@ -17,7 +17,7 @@ public class Application extends SpringBootServletInitializer {
 
     public static void main(String[] args) throws Exception {
     	DatabaseDataBuilder.setIp("188.166.123.191");
-    	DatabaseDataBuilder.setDatabase("FenrirSecurity");
+    	DatabaseDataBuilder.setDatabase("fenrir_customers");
     	DatabaseDataBuilder.setUsername("access");
     	DatabaseDataBuilder.setPassword("vXn6dnOcMoObrsacZl3a");
     	

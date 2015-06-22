@@ -1,13 +1,14 @@
 package FenrirService.database.data;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class UserTable implements DataInterface {
 	
 	private int id;
 	private String name;
+	private String companyName;
 	private String phoneNumber;
-	private CompanyTable company;
 	
 	public int getId() {
 		return id;
@@ -32,24 +33,18 @@ public class UserTable implements DataInterface {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	
-	public CompanyTable getCompany() {
-		return company;
-	}
-	
-	public void setCompany(CompanyTable company) {
-		this.company = company;
-	}
 
 	@Override
 	public String buildSelect() {
-		// TODO Auto-generated method stub
-		return null;
+		if(name != null){
+			return "SELECT * FROM users WHERE username='" + name + "'";
+		}else{
+			return "SELECT * FROM users WHERE number='" + phoneNumber + "'";
+		}
 	}
 
 	@Override
 	public String buildInsert() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -68,7 +63,26 @@ public class UserTable implements DataInterface {
 	@Override
 	public void setAll(ResultSet set) {
 		// TODO Auto-generated method stub
-		
+		try {
+			while(set.next()){
+				System.out.println(set.getInt("id"));
+				setId(set.getInt("id"));
+				setName(set.getString("username"));
+				setCompanyName(set.getString("company"));
+				setPhoneNumber(set.getString("phone"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
 	}
 
 }

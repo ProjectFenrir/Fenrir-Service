@@ -4,6 +4,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import FenrirService.database.MySQLConnector;
+import FenrirService.database.data.AttemptTable;
+import FenrirService.database.data.UserTable;
 import FenrirService.representation.login.Auth;
 
 /*
@@ -17,6 +20,8 @@ import FenrirService.representation.login.Auth;
 @RestController
 public class LoginController {
 	
+	MySQLConnector mysql = new MySQLConnector();
+	
 	// url: <domain>/FenrirService/login?username=<user>&company=<company>
 	@RequestMapping("/login")
 	public Auth auth(@RequestParam(value="username", defaultValue="None") String username, @RequestParam(value="company", defaultValue="None") String company){
@@ -28,7 +33,14 @@ public class LoginController {
 		if(username.equals("None") || company.equals("None")){
 			state = 1;
 		}else{
-			state = 2;
+			UserTable user = new UserTable();
+			user.setName(username);
+			user.setCompanyName(company);
+			user = mysql.readDatabase(user);
+			AttemptTable attempt = new AttemptTable();
+			attempt.setUser(user);
+			mysql.writeDatabase(attempt);			
+			state=2;
 		}
 		
 		//Create Auth data object to return message

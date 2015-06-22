@@ -1,6 +1,7 @@
 package FenrirService.database.data;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 
 public class AttemptTable implements DataInterface {
@@ -44,20 +45,18 @@ public class AttemptTable implements DataInterface {
 
 	@Override
 	public String buildSelect() {
-		// TODO Auto-generated method stub
-		return null;
+		return "SELECT * FROM attempt WHERE user_id=" + user.getId();
 	}
 
 	@Override
 	public String buildInsert() {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println(user.getId() + " is de user Id");
+		return "INSERT INTO attempt (state, user_id) VALUES ( 0, " + user.getId() + ")";
 	}
 
 	@Override
 	public String buildUpdate() {
-		// TODO Auto-generated method stub
-		return null;
+		return "UPDATE attempt SET state=" + state + " WHERE id=" + id;
 	}
 
 	@Override
@@ -67,9 +66,16 @@ public class AttemptTable implements DataInterface {
 	}
 
 	@Override
-	public void setAll(ResultSet set) {
-		// TODO Auto-generated method stub
-		
+	public void setAll(ResultSet set) {		
+		try {
+			set.last();
+			setId(set.getInt("id"));
+			setState(set.getInt("id"));
+			user.setId(set.getInt("user_id"));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

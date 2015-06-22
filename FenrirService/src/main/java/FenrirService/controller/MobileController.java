@@ -4,10 +4,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import FenrirService.database.MySQLConnector;
+import FenrirService.database.data.AttemptTable;
+import FenrirService.database.data.UserTable;
 import FenrirService.representation.mobile.*;
 
 @RestController
 public class MobileController {
+	
+	MySQLConnector mysql = new MySQLConnector();
 	
 	//Get required data for auth <url>/FenrirService/mobile/data?number=<number>
 	@RequestMapping("/mobile/data")
@@ -25,14 +30,23 @@ public class MobileController {
 			return new Auth(2);
 		}
 		
+		UserTable user = new UserTable();
+		user.setPhoneNumber(number);
+		user = mysql.readDatabase(user);
+		AttemptTable attempt = new AttemptTable();
+		attempt.setUser(user);
+		attempt = mysql.readDatabase(attempt);
+		
 		//check if auth succeeded
 		if(!auth.equals("failed")){
 			//execude code for succeeded attempt
-			
+			attempt.setState(1);
+			mysql.updateDatabase(attempt);
 			return new Auth(1);
 		}else{
 			//execude code for failed attempt
-			
+			attempt.setState(2);
+			mysql.updateDatabase(attempt);			
 			return new Auth(0);
 		}
 		
