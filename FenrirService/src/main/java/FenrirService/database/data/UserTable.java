@@ -1,5 +1,7 @@
 package FenrirService.database.data;
 
+import java.sql.ResultSet;
+
 public class UserTable implements DataInterface {
 	
 	private int id;
@@ -61,6 +63,12 @@ public class UserTable implements DataInterface {
 	public String buildDelete() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void setAll(ResultSet set) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

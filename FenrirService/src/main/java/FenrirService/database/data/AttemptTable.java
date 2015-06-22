@@ -1,5 +1,6 @@
 package FenrirService.database.data;
 
+import java.sql.ResultSet;
 import java.util.Date;
 
 public class AttemptTable implements DataInterface {
@@ -63,6 +64,12 @@ public class AttemptTable implements DataInterface {
 	public String buildDelete() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void setAll(ResultSet set) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

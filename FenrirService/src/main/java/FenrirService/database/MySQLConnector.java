@@ -2,22 +2,21 @@ package FenrirService.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Date;
+
+import FenrirService.database.data.DataInterface;
 
 public class MySQLConnector {
 	private Connection connect = null;
 	private Statement statement = null;
-	private PreparedStatement preparedStatement = null;
 	private ResultSet resultSet = null;
 	
-	private void OpenConnectionDatabase() {
+	private void openConnectionDatabase() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			connect = DriverManager.getConnection("jdbc:mysql://" + DatabaseData.getIp() + "/" + 
+			connect = DriverManager.getConnection("jdbc:mysql://" + DatabaseData.getIp() + ":3306/" + 
 					DatabaseData.getDatabase(),
 					DatabaseData.getUsername(),
 					DatabaseData.getPassword());
@@ -28,23 +27,51 @@ public class MySQLConnector {
 		}
 	}
 	
-	public <E> E readDatabase(E e){
-		
-		
-		
+	public <E extends DataInterface> E readDatabase(E e){
+		try {
+			openConnectionDatabase();
+			resultSet = statement.executeQuery(e.buildSelect());
+			e.setAll(resultSet);
+			closeConnectionDatabase();
+		} catch (SQLException ex) {
+			// TODO Auto-generated catch block
+			ex.printStackTrace();
+		}
 		return e;
 	}
 	
-	public void writeDatabase(){
-		
+	public <E extends DataInterface> void writeDatabase(E e){
+		try {
+			openConnectionDatabase();
+			statement.executeUpdate(e.buildInsert());
+			closeConnectionDatabase();
+		} catch (SQLException ex) {
+			// TODO Auto-generated catch block
+			ex.printStackTrace();
+		}
 	}
 	
-	public void updateDatabase(){
-		
+	public <E extends DataInterface> void updateDatabase(E e){
+		try {
+			openConnectionDatabase();
+			statement.executeQuery(e.buildUpdate());
+			closeConnectionDatabase();
+		} catch (SQLException ex) {
+			// TODO Auto-generated catch block
+			ex.printStackTrace();
+		}
 	}
 	
-	public void deleteDatabase(){
-		
+	public <E extends DataInterface> void deleteDatabase(E e){
+		try {
+			e = readDatabase(e);
+			openConnectionDatabase();
+			statement.executeQuery(e.buildDelete());
+			closeConnectionDatabase();
+		} catch (SQLException ex) {
+			// TODO Auto-generated catch block
+			ex.printStackTrace();
+		}
 	}
 	
 	private void closeConnectionDatabase(){

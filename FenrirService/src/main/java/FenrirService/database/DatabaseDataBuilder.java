@@ -3,7 +3,7 @@ package FenrirService.database;
 public class DatabaseDataBuilder {
 
 	public static void setIp(String ip) {
-		DatabaseData.setIp(ip);;
+		DatabaseData.setIp(ip);
 	}
 
 	public static void setDatabase(String database) {

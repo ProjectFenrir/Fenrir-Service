@@ -1,5 +1,7 @@
 package FenrirService.database.data;
 
+import java.sql.ResultSet;
+
 public class CompanyTable implements DataInterface {
 	
 	private int id;
@@ -29,8 +31,7 @@ public class CompanyTable implements DataInterface {
 
 	@Override
 	public String buildInsert() {
-		// TODO Auto-generated method stub
-		return null;
+		return "INSERT INTO company (name) VALUES ('" + name + "')";
 	}
 
 	@Override
@@ -41,8 +42,13 @@ public class CompanyTable implements DataInterface {
 
 	@Override
 	public String buildDelete() {
+		return "DELETE FROM company WHERE id = " + id;
+	}
+
+	@Override
+	public void setAll(ResultSet set) {
 		// TODO Auto-generated method stub
-		return null;
+		
 	}
 
 }

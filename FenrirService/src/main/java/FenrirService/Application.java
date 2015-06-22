@@ -5,6 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 
+import FenrirService.database.DatabaseDataBuilder;
+
 @SpringBootApplication
 public class Application extends SpringBootServletInitializer {
 
@@ -14,6 +16,13 @@ public class Application extends SpringBootServletInitializer {
     }
 
     public static void main(String[] args) throws Exception {
+    	DatabaseDataBuilder.setIp("188.166.123.191");
+    	DatabaseDataBuilder.setDatabase("FenrirSecurity");
+    	DatabaseDataBuilder.setUsername("access");
+    	DatabaseDataBuilder.setPassword("vXn6dnOcMoObrsacZl3a");
+    	
+    	//Test test = new Test();
+    	
         SpringApplication.run(Application.class, args);
     }
 
