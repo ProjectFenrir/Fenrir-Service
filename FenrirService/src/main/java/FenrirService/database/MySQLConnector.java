@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import FenrirService.database.data.DataInterface;
+import FenrirService.logger.FenrirLogging;
 
 public class MySQLConnector {
 	private Connection connect = null;
@@ -22,8 +23,7 @@ public class MySQLConnector {
 					DatabaseData.getPassword());
 			statement = connect.createStatement();
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			FenrirLogging.getInstance().logSevere(e.toString());
 		}
 	}
 	
@@ -34,8 +34,7 @@ public class MySQLConnector {
 			e.setAll(resultSet);
 			closeConnectionDatabase();
 		} catch (SQLException ex) {
-			// TODO Auto-generated catch block
-			ex.printStackTrace();
+			FenrirLogging.getInstance().logSevere(ex.toString());
 		}
 		return e;
 	}
@@ -46,8 +45,7 @@ public class MySQLConnector {
 			statement.executeUpdate(e.buildInsert());
 			closeConnectionDatabase();
 		} catch (SQLException ex) {
-			// TODO Auto-generated catch block
-			ex.printStackTrace();
+			FenrirLogging.getInstance().logSevere(ex.toString());
 		}
 	}
 	
@@ -57,8 +55,7 @@ public class MySQLConnector {
 			statement.executeUpdate(e.buildUpdate());
 			closeConnectionDatabase();
 		} catch (SQLException ex) {
-			// TODO Auto-generated catch block
-			ex.printStackTrace();
+			FenrirLogging.getInstance().logSevere(ex.toString());
 		}
 	}
 	
@@ -69,8 +66,7 @@ public class MySQLConnector {
 			statement.executeUpdate(e.buildDelete());
 			closeConnectionDatabase();
 		} catch (SQLException ex) {
-			// TODO Auto-generated catch block
-			ex.printStackTrace();
+			FenrirLogging.getInstance().logSevere(ex.toString());
 		}
 	}
 	

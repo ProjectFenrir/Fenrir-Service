@@ -3,6 +3,8 @@ package FenrirService.database.data;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import FenrirService.logger.FenrirLogging;
+
 public class UserTable implements DataInterface {
 	
 	private int id;
@@ -79,8 +81,7 @@ public class UserTable implements DataInterface {
 				setPhoneNumber(set.getString("phone"));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			FenrirLogging.getInstance().logWarning(e.toString());
 		}
 	}
 }

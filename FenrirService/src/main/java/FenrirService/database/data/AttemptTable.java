@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 
+import FenrirService.logger.FenrirLogging;
+
 public class AttemptTable implements DataInterface {
 	
 	private int id;
@@ -45,7 +47,7 @@ public class AttemptTable implements DataInterface {
 
 	@Override
 	public String buildSelect() {
-		return "SELECT * FROM attempt WHERE user_id=" + user.getId();
+		return "SELECT * FROM attempt WHERE user_id=" + user.getId() + " ORDER BY stamp DESC LIMIT 1";
 	}
 
 	@Override
@@ -72,8 +74,7 @@ public class AttemptTable implements DataInterface {
 			setState(set.getInt("id"));
 			user.setId(set.getInt("user_id"));
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			FenrirLogging.getInstance().logWarning(e.toString());
 		}
 	}
 

@@ -6,6 +6,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 
 import FenrirService.database.DatabaseDataBuilder;
+import FenrirService.logger.FenrirLogging;
 
 @SpringBootApplication
 public class Application extends SpringBootServletInitializer {
@@ -21,7 +22,7 @@ public class Application extends SpringBootServletInitializer {
     	DatabaseDataBuilder.setUsername("access");
     	DatabaseDataBuilder.setPassword("vXn6dnOcMoObrsacZl3a");
     	
-    	//Test test = new Test();
+    	FenrirLogging.getInstance().setupInstance("C:/Users/Jan/Desktop/test.txt");
     	
         SpringApplication.run(Application.class, args);
     }

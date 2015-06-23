@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import FenrirService.database.MySQLConnector;
 import FenrirService.database.data.AttemptTable;
 import FenrirService.database.data.UserTable;
+import FenrirService.logger.FenrirLogging;
 import FenrirService.representation.login.Auth;
 
 /*
@@ -32,6 +33,7 @@ public class LoginController {
 		//If either username or company uses the default values declared by requestParam return 1 else execute authorization attempt.
 		if(username.equals("None") || company.equals("None")){
 			state = 1;
+			FenrirLogging.getInstance().logInfo("Invalid login attempt");
 		}else{
 			UserTable user = new UserTable();
 			user.setName(username);
@@ -41,6 +43,7 @@ public class LoginController {
 			attempt.setUser(user);
 			mysql.writeDatabase(attempt);			
 			state=2;
+			FenrirLogging.getInstance().logInfo(user.getName() + " has logged in");
 		}
 		
 		//Create Auth data object to return message
