@@ -74,7 +74,6 @@ public class UserTable implements DataInterface {
 	public void setAll(ResultSet set) {
 		try {
 			while(set.next()){
-				System.out.println(set.getInt("id"));
 				setId(set.getInt("id"));
 				setName(set.getString("username"));
 				setCompanyName(set.getString("company"));

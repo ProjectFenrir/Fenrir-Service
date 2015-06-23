@@ -52,7 +52,6 @@ public class AttemptTable implements DataInterface {
 
 	@Override
 	public String buildInsert() {
-		System.out.println(user.getId() + " is de user Id");
 		return "INSERT INTO attempt (state, user_id) VALUES ( 0, " + user.getId() + ")";
 	}
 
