@@ -61,8 +61,7 @@ public class AttemptTable implements DataInterface {
 
 	@Override
 	public String buildDelete() {
-		// TODO Auto-generated method stub
-		return null;
+		return "DELETE FROM attempt WHERE id =" + id;
 	}
 
 	@Override

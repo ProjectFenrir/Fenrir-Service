@@ -54,7 +54,7 @@ public class MySQLConnector {
 	public <E extends DataInterface> void updateDatabase(E e){
 		try {
 			openConnectionDatabase();
-			statement.executeQuery(e.buildUpdate());
+			statement.executeUpdate(e.buildUpdate());
 			closeConnectionDatabase();
 		} catch (SQLException ex) {
 			// TODO Auto-generated catch block
@@ -66,7 +66,7 @@ public class MySQLConnector {
 		try {
 			e = readDatabase(e);
 			openConnectionDatabase();
-			statement.executeQuery(e.buildDelete());
+			statement.executeUpdate(e.buildDelete());
 			closeConnectionDatabase();
 		} catch (SQLException ex) {
 			// TODO Auto-generated catch block

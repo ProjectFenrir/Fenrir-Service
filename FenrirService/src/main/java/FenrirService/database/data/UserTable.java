@@ -34,35 +34,42 @@ public class UserTable implements DataInterface {
 		this.phoneNumber = phoneNumber;
 	}
 
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
 	@Override
 	public String buildSelect() {
-		if(name != null){
-			return "SELECT * FROM users WHERE username='" + name + "'";
+		if(id != 0){
+			return "SELECT * FROM users WHERE id=" + id;
+		}else if(name != null){
+			return "SELECT * FROM users WHERE username=" + name + " AND company=" + companyName + "";
 		}else{
-			return "SELECT * FROM users WHERE number='" + phoneNumber + "'";
+			return "SELECT * FROM users WHERE phone='" + phoneNumber + "'";
 		}
 	}
 
 	@Override
 	public String buildInsert() {
-		return null;
+		return "INSERT INTO users (id, username, company, phone) VALUES " + id + "," + name + "," + companyName + "," + phoneNumber;
 	}
 
 	@Override
 	public String buildUpdate() {
-		// TODO Auto-generated method stub
-		return null;
+		return "UPDATE users SET username=" + name + ", company=" + companyName + ", phone=" + phoneNumber + " WHERE id=" + id;
 	}
 
 	@Override
 	public String buildDelete() {
-		// TODO Auto-generated method stub
-		return null;
+		return "DELETE FROM users WHERE id=" + id;
 	}
 
 	@Override
 	public void setAll(ResultSet set) {
-		// TODO Auto-generated method stub
 		try {
 			while(set.next()){
 				System.out.println(set.getInt("id"));
@@ -76,13 +83,4 @@ public class UserTable implements DataInterface {
 			e.printStackTrace();
 		}
 	}
-
-	public String getCompanyName() {
-		return companyName;
-	}
-
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
-	}
-
 }
