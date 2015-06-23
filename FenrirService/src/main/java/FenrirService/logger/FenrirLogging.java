@@ -22,6 +22,7 @@ public class FenrirLogging {
 		if(fh == null){
 			try {
 				fh = new FileHandler(fhPath);
+		        logger.addHandler(fh);
 				formatter = new SimpleFormatter();  
 				fh.setFormatter(formatter);
 				logger.setUseParentHandlers(false);
