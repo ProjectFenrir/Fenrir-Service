@@ -1,5 +1,9 @@
 package FenrirService.database;
 
+/*
+ * Class used to store data for database connection
+ */
+
 public class DatabaseData {
 
 	private static String ip;

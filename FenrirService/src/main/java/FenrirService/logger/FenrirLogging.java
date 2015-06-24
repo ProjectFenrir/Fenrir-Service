@@ -5,6 +5,10 @@ import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
+/*
+ * Fenrir logging is a singleton object that takes care of logging to a file
+ */
+
 public class FenrirLogging {
 	
 	private static FenrirLogging instance = new FenrirLogging();
@@ -14,10 +18,12 @@ public class FenrirLogging {
 	
 	private FenrirLogging(){} //prevent instantiating
 	
+	//returns the singleton object
 	public static FenrirLogging getInstance(){
 		return instance;
 	}
 	
+	//sets up the instance
 	public void setupInstance(String fhPath){
 		if(fh == null){
 			try {
@@ -33,14 +39,17 @@ public class FenrirLogging {
 		}
 	}
 	
+	//log severe mesage
 	public void logSevere(String msg){
 		logger.severe(msg);
 	}
 	
+	//log wanring message
 	public void logWarning(String msg){
 		logger.warning(msg);
 	}
 	
+	//log info message
 	public void logInfo(String msg){
 		logger.info(msg);
 	}

@@ -7,6 +7,9 @@ import org.springframework.boot.context.web.SpringBootServletInitializer;
 
 import FenrirService.database.DatabaseDataBuilder;
 import FenrirService.logger.FenrirLogging;
+/*
+ * Main class that functiosn to startup the rest of the backend
+ */
 
 @SpringBootApplication
 public class Application extends SpringBootServletInitializer {
@@ -17,13 +20,16 @@ public class Application extends SpringBootServletInitializer {
     }
 
     public static void main(String[] args) throws Exception {
+    	//Set database data
     	DatabaseDataBuilder.setIp("188.166.123.191");
     	DatabaseDataBuilder.setDatabase("fenrir_customers");
     	DatabaseDataBuilder.setUsername("access");
     	DatabaseDataBuilder.setPassword("vXn6dnOcMoObrsacZl3a");
     	
+    	//setup logger
     	FenrirLogging.getInstance().setupInstance("C:/Users/Jan/Desktop/test.txt");
     	
+    	//startup spring io service
         SpringApplication.run(Application.class, args);
     }
 

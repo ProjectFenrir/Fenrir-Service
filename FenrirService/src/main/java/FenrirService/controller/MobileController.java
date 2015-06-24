@@ -10,11 +10,16 @@ import FenrirService.database.data.UserTable;
 import FenrirService.logger.FenrirLogging;
 import FenrirService.representation.mobile.*;
 
+/*
+ * Spring IO mobile controller that is used for check and auth calls
+ */
+
 @RestController
 public class MobileController {
 	
 	MySQLConnector mysql = new MySQLConnector();
 	
+	//authenticate fucntion for mobile to call when the authentication is finished
 	@RequestMapping("/mobile/auth")
 	public Auth auth(@RequestParam(value="number", defaultValue="0") String number, 
 			@RequestParam(value="auth", defaultValue="failed") String auth){
@@ -43,7 +48,7 @@ public class MobileController {
 			attempt.setState(2);
 			mysql.updateDatabase(attempt);	
 			FenrirLogging.getInstance().logInfo("Failed login attempt by " + user.getName());
-			return new Auth(0);
+			return new Auth(1);
 		}
 		
 	}
