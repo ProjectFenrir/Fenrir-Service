@@ -16,7 +16,8 @@ public class MobileController {
 	MySQLConnector mysql = new MySQLConnector();
 	
 	@RequestMapping("/mobile/auth")
-	public Auth auth(@RequestParam(value="number", defaultValue="0") String number, @RequestParam(value="auth", defaultValue="failed") String auth){
+	public Auth auth(@RequestParam(value="number", defaultValue="0") String number, 
+			@RequestParam(value="auth", defaultValue="failed") String auth){
 		
 		//check if number is equal to 0 if so auth cannot succeed so return error
 		if(number.equals("0")){
@@ -35,13 +36,13 @@ public class MobileController {
 			//execude code for succeeded attempt
 			attempt.setState(1);
 			mysql.updateDatabase(attempt);
-			FenrirLogging.getInstance().logInfo("Failed login attempt by " + user.getName());
+			FenrirLogging.getInstance().logInfo("Succeeded login attempt by " + user.getName());
 			return new Auth(1);
 		}else{
 			//execude code for failed attempt
 			attempt.setState(2);
 			mysql.updateDatabase(attempt);	
-			FenrirLogging.getInstance().logInfo("Succeeded login attempt by " + user.getName());
+			FenrirLogging.getInstance().logInfo("Failed login attempt by " + user.getName());
 			return new Auth(0);
 		}
 		
